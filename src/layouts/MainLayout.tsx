@@ -1,7 +1,13 @@
-import { Outlet, Link } from 'react-router-dom';
-import { Bell, MessageSquare, UserCircle, Settings, Menu } from 'lucide-react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Bell, MessageSquare, UserCircle, Settings, Menu, LogOut } from 'lucide-react';
 
 export const MainLayout = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('campus_session');
+        navigate('/login');
+    };
     return (
         <div className="min-h-screen flex flex-col">
             {/* Header Corporativo Moodle-like */}
@@ -46,6 +52,13 @@ export const MainLayout = () => {
                         <button className="flex items-center gap-2 hover:bg-gray-100 p-1.5 rounded-full transition-colors">
                             <span className="text-sm font-medium text-gray-700 hidden sm:block">J. Vera</span>
                             <UserCircle size={28} className="text-gray-400" />
+                        </button>
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-red-50 transition-colors ml-2"
+                            title="Cerrar sesión"
+                        >
+                            <LogOut size={20} className="text-red-500" />
                         </button>
                     </div>
                 </div>

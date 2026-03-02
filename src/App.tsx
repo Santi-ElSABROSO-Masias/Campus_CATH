@@ -1,15 +1,30 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { Home } from './pages/Home';
+import { Dashboard } from './pages/Dashboard';
+import { MyCourses } from './pages/MyCourses';
+import { Login } from './pages/Login';
+
+// Mock de validación sencilla
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const isAuth = localStorage.getItem('campus_session') === 'active';
+  if (!isAuth) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/login" element={<Login />} />
+
+        {/* Rutas aseguradas */}
+        <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
           <Route index element={<Home />} />
-          <Route path="dashboard" element={<div className="p-8 text-xl font-bold text-gray-700">Área Personal en Construcción...</div>} />
-          <Route path="my-courses" element={<div className="p-8 text-xl font-bold text-gray-700">Mis Cursos en Construcción...</div>} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="my-courses" element={<MyCourses />} />
         </Route>
       </Routes>
     </BrowserRouter>
