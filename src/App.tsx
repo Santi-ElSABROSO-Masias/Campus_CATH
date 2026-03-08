@@ -7,7 +7,8 @@ import { Login } from './pages/Login';
 
 // Mock de validación sencilla
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const isAuth = localStorage.getItem('campus_session') === 'active';
+  // ✅ Después (clave del backend real)
+  const isAuth = !!localStorage.getItem('campus_session_token');
   if (!isAuth) {
     return <Navigate to="/login" replace />;
   }

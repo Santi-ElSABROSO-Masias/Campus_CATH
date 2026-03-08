@@ -6,19 +6,39 @@ export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+        setIsLoading(true);
 
-        // Simulando login simple para el prototipo
-        if (username.length > 3 && password.length > 5) {
-            // Guardar token falso
-            localStorage.setItem('campus_session', 'active');
-            navigate('/dashboard');
-        } else {
-            setError('Credenciales inválidas. Revise los datos enviados a su correo.');
+        try {
+            const cleanUsername = username.trim();
+            const cleanPassword = password.trim();
+
+            const response = await fetch('http://localhost:3001/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: cleanUsername, password: cleanPassword })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Guardar token y datos del usuario reales devueltos por NestJS
+                localStorage.setItem('campus_session_token', data.access_token);
+                localStorage.setItem('campus_user', JSON.stringify(data.user));
+                navigate('/dashboard');
+            } else {
+                setError(data.message || 'Credenciales inválidas. Revise los datos.');
+            }
+        } catch (err: any) {
+            console.error("Fetch Error:", err);
+            setError(`Error de red: ${err.message || 'No se pudo conectar al servidor.'}`);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -74,9 +94,10 @@ export const Login = () => {
 
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md hover:shadow-lg focus:ring-4 focus:ring-blue-200"
+                            disabled={isLoading}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md hover:shadow-lg focus:ring-4 focus:ring-blue-200 disabled:opacity-70 disabled:cursor-not-allowed"
                         >
-                            Acceder al Campus
+                            {isLoading ? 'Conectando...' : 'Acceder al Campus'}
                         </button>
                     </form>
 
