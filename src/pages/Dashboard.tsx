@@ -1,6 +1,49 @@
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Clock, BookOpen, CheckCircle, AlertCircle, Calendar as CalendarIcon, Filter, Search, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 
 export const Dashboard = () => {
+    const [enrollments, setEnrollments] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProgress = async () => {
+            try {
+                const token = localStorage.getItem('campus_session_token');
+                if (!token) return;
+
+                const response = await fetch('http://localhost:3001/api/enrollments/my-progress', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setEnrollments(data);
+                }
+            } catch (err) {
+                console.error("Failed to fetch progress", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProgress();
+    }, []);
+
+    const totalInscritos = enrollments.length;
+    const completados = enrollments.filter(e => e.computedProgress === 100).length;
+
+    // Simplistic metric mapping
+    const actividadesCompletadas = enrollments.reduce((acc, current) =>
+        acc + current.attempts.filter((a: any) => a.status === 'Completado').length, 0);
+
+    // Placeholder for pending calculation
+    const actividadesPendientes = enrollments.reduce((acc, current) => {
+        const total = current.course.modules.reduce((mAcc: number, mod: any) => mAcc + mod.activities.length, 0);
+        const done = current.attempts.filter((a: any) => a.status === 'Completado').length;
+        return acc + (total - done);
+    }, 0);
+
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="flex justify-between items-center">
@@ -12,36 +55,46 @@ export const Dashboard = () => {
 
             {/* 3.1 Panel de Métricas */}
             <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <MetricCard label="Cursos inscritos" value="1" icon={<BookOpen size={24} className="text-blue-500" />} />
-                <MetricCard label="Cursos completados" value="1" icon={<CheckCircle size={24} className="text-green-500" />} />
-                <MetricCard label="Actividades completadas" value="3" icon={<Clock size={24} className="text-purple-500" />} />
-                <MetricCard label="Actividades pendientes" value="0" icon={<AlertCircle size={24} className="text-orange-500" />} />
+                <MetricCard label="Cursos inscritos" value={loading ? "..." : String(totalInscritos)} icon={<BookOpen size={24} className="text-blue-500" />} />
+                <MetricCard label="Cursos completados" value={loading ? "..." : String(completados)} icon={<CheckCircle size={24} className="text-green-500" />} />
+                <MetricCard label="Actividades completadas" value={loading ? "..." : String(actividadesCompletadas)} icon={<Clock size={24} className="text-purple-500" />} />
+                <MetricCard label="Actividades pendientes" value={loading ? "..." : Math.max(0, actividadesPendientes).toString()} icon={<AlertCircle size={24} className="text-orange-500" />} />
             </section>
 
             {/* 3.2 Cursos Accedidos Recientemente */}
             <section>
                 <h2 className="text-lg font-bold text-slate-800 mb-4">Cursos accedidos recientemente</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition group">
-                        <div className="h-32 bg-slate-100 relative">
-                            <div className="absolute inset-0 bg-[linear-gradient(45deg,#2563eb_25%,transparent_25%,transparent_75%,#2563eb_75%,#2563eb),linear-gradient(45deg,#2563eb_25%,transparent_25%,transparent_75%,#2563eb_75%,#2563eb)] bg-[length:20px_20px] bg-[position:0_0,10px_10px] opacity-10"></div>
-                            <span className="absolute top-2 left-2 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-slate-700 shadow-sm">Orica</span>
-                        </div>
-                        <div className="p-4">
-                            <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2 min-h-12">
-                                Desacelera en la Ruta 2026
-                            </h3>
-                            <div className="mt-4">
-                                <div className="flex justify-between text-xs text-slate-500 mb-1">
-                                    <span>Progreso</span>
-                                    <span className="font-medium text-slate-700">100%</span>
+                    {loading ? (
+                        <div className="text-slate-500">Cargando cursos...</div>
+                    ) : enrollments.length === 0 ? (
+                        <div className="text-slate-500 p-4 border rounded-xl bg-slate-50 border-dashed">No estás inscrito en ningún curso.</div>
+                    ) : (
+                        enrollments.slice(0, 3).map((enrollment: any) => (
+                            <a href={`/course/${enrollment.id}`} key={enrollment.id} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition group block">
+                                <div className="h-32 bg-slate-100 relative">
+                                    <div className="absolute inset-0 bg-[linear-gradient(45deg,#2563eb_25%,transparent_25%,transparent_75%,#2563eb_75%,#2563eb),linear-gradient(45deg,#2563eb_25%,transparent_25%,transparent_75%,#2563eb_75%,#2563eb)] bg-[length:20px_20px] bg-[position:0_0,10px_10px] opacity-10"></div>
+                                    <span className="absolute top-2 left-2 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-slate-700 shadow-sm">
+                                        Pueba_CATH
+                                    </span>
                                 </div>
-                                <div className="w-full bg-slate-100 rounded-full h-2">
-                                    <div className="bg-green-500 h-2 rounded-full w-full"></div>
+                                <div className="p-4">
+                                    <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2 min-h-12">
+                                        {enrollment.course.title}
+                                    </h3>
+                                    <div className="mt-4">
+                                        <div className="flex justify-between text-xs text-slate-500 mb-1">
+                                            <span>Progreso</span>
+                                            <span className="font-medium text-slate-700">{enrollment.computedProgress}%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-100 rounded-full h-2">
+                                            <div className="bg-green-500 h-2 rounded-full transition-all duration-500" style={{ width: `${enrollment.computedProgress}%` }}></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            </a>
+                        ))
+                    )}
                 </div>
             </section>
 

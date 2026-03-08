@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { Dashboard } from './pages/Dashboard';
 import { MyCourses } from './pages/MyCourses';
 import { Login } from './pages/Login';
+import { CourseViewer } from './pages/CourseViewer';
 
 // Mock de validación sencilla
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -21,7 +22,10 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
 
-        {/* Rutas aseguradas */}
+        {/* Rutas aseguradas independientes */}
+        <Route path="/course/:id" element={<ProtectedRoute><CourseViewer /></ProtectedRoute>} />
+
+        {/* Rutas aseguradas con Layout Principal */}
         <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
           <Route index element={<Home />} />
           <Route path="dashboard" element={<Dashboard />} />
