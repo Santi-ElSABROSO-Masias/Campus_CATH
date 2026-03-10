@@ -31,22 +31,24 @@ export const Home = () => {
     return (
         <div className="space-y-8">
             {/* Banner Area */}
-            <div className="bg-blue-600 rounded-2xl p-8 text-white shadow-lg overflow-hidden relative">
+            <div className="bg-[#145A52] rounded-2xl p-8 text-white shadow-xl overflow-hidden relative border-l-4 border-[#00A064]">
                 <div className="relative z-10 max-w-2xl">
-                    <h1 className="text-3xl md:text-4xl font-bold mb-4">Bienvenido a su plataforma de capacitación</h1>
-                    <p className="text-blue-100 text-lg mb-6">Explore el catálogo de cursos corporativos disponibles para su perfil.</p>
-                    <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
+                    <h1 className="text-3xl md:text-5xl font-black mb-4">Bienvenido a su Plataforma de Inducciones Rápidas</h1>
+                    <p className="text-[#78C67B] text-lg mb-6 font-medium">Explore el catálogo de charlas y capacitaciones SSOMA disponibles para su perfil.</p>
+                    <button className="px-6 py-3 bg-[#FF9132] text-white font-bold rounded-lg shadow-lg hover:bg-orange-500 transition-all hover:-translate-y-0.5">
                         Explorar catálogo
                     </button>
                 </div>
-                <div className="absolute right-0 top-0 -mr-20 -mt-20 w-96 h-96 bg-blue-500 rounded-full opacity-50 blur-3xl"></div>
+                {/* Decoration */}
+                <div className="absolute right-0 top-0 -mr-20 -mt-20 w-96 h-96 bg-[#00A064] rounded-full opacity-30 blur-3xl"></div>
+                <div className="absolute right-32 bottom-[-50px] w-64 h-64 bg-[#78C67B] rounded-full opacity-20 blur-2xl"></div>
             </div>
 
             {/* Catálogo */}
             <div>
                 <div className="flex justify-between items-end mb-6">
                     <h2 className="text-2xl font-bold text-gray-800">Cursos Disponibles</h2>
-                    <button className="text-blue-600 font-medium hover:underline">Ver todos</button>
+                    <button className="text-[#00A064] font-bold hover:underline">Ver todos</button>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -64,12 +66,12 @@ export const Home = () => {
                                     <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-gray-700">
                                         Pueba_CATH
                                     </div>
-                                    <div className="absolute bottom-3 right-3 bg-blue-600/90 text-white backdrop-blur-sm px-2 py-1 rounded text-xs font-medium uppercase">
+                                    <div className="absolute bottom-3 right-3 bg-[#FF9132] text-white shadow-md px-2 py-1 rounded text-xs font-bold uppercase">
                                         {course.courseType.replace('InduccionCorta', 'SSOMA')}
                                     </div>
                                 </div>
                                 <div className="p-5 flex flex-col flex-1">
-                                    <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                                    <h3 className="font-bold text-gray-900 group-hover:text-[#00A064] transition-colors line-clamp-2 mb-2">
                                         {course.title}
                                     </h3>
                                     <p className="text-xs text-gray-500 line-clamp-2 mb-4 flex-1">

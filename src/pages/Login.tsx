@@ -46,12 +46,12 @@ export const Login = () => {
         <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
             <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
 
-                <div className="bg-blue-600 p-8 text-center">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-blue-600 font-bold text-2xl mx-auto shadow-md mb-4">
-                        C
+                <div className="bg-[#00A064] p-8 text-center">
+                    <div className="w-20 h-20 bg-white p-2 rounded-2xl flex items-center justify-center mx-auto shadow-md mb-4">
+                        <img src="/assets/logo ch.png" alt="Logo CH" className="w-full h-full object-contain" />
                     </div>
-                    <h2 className="text-2xl font-bold text-white">Campus_CATH</h2>
-                    <p className="text-blue-100 mt-2 text-sm">Plataforma e-Learning Soluciones</p>
+                    <h2 className="text-2xl font-bold text-white">Inducciones Cathalina</h2>
+                    <p className="text-[#FF9132] font-semibold mt-2 text-sm">Plataforma de Inducciones Rapidas</p>
                 </div>
 
                 <div className="p-8">
@@ -71,7 +71,7 @@ export const Login = () => {
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     placeholder="Ej: temp_12345678"
-                                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-[#00A064] outline-none transition-all"
                                     required
                                 />
                             </div>
@@ -86,7 +86,7 @@ export const Login = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Ingrese su contraseña temporal"
-                                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-[#00A064] outline-none transition-all"
                                     required
                                 />
                             </div>
@@ -95,7 +95,7 @@ export const Login = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md hover:shadow-lg focus:ring-4 focus:ring-blue-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="w-full bg-[#00A064] hover:bg-[#145A52] text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-md hover:shadow-lg focus:ring-4 focus:ring-[#78C67B] disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {isLoading ? 'Conectando...' : 'Acceder al Campus'}
                         </button>
