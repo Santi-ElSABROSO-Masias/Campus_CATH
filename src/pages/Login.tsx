@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, User } from 'lucide-react';
 
@@ -8,6 +8,14 @@ export const Login = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+
+    // Persistencia de sesión (Auto-Login)
+    useEffect(() => {
+        const token = localStorage.getItem('campus_session_token');
+        if (token) {
+            navigate('/dashboard');
+        }
+    }, [navigate]);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
