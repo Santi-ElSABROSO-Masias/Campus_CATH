@@ -33,7 +33,7 @@ export const Home = () => {
             {/* Banner Area */}
             <div className="bg-[#145A52] rounded-2xl p-8 text-white shadow-xl overflow-hidden relative border-l-4 border-[#00A064]">
                 <div className="relative z-10 max-w-2xl">
-                    <h1 className="text-3xl md:text-5xl font-black mb-4">Bienvenido a su Plataforma de Inducciones Rápidas</h1>
+                    <h1 className="text-3xl md:text-5xl font-black mb-4">Bienvenido a su Inducción de Trabajos temporales</h1>
                     <p className="text-[#78C67B] text-lg mb-6 font-medium">Explore el catálogo de charlas y capacitaciones SSOMA disponibles para su perfil.</p>
                     <button className="px-6 py-3 bg-[#FF9132] text-white font-bold rounded-lg shadow-lg hover:bg-orange-500 transition-all hover:-translate-y-0.5">
                         Explorar catálogo

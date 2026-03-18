@@ -59,7 +59,7 @@ export const Login = () => {
                         <img src="/assets/logo ch.png" alt="Logo CH" className="w-full h-full object-contain" />
                     </div>
                     <h2 className="text-2xl font-bold text-white">Inducciones Cathalina</h2>
-                    <p className="text-[#FF9132] font-semibold mt-2 text-sm">Plataforma de Inducciones Rapidas</p>
+                    <p className="text-[#FF9132] font-semibold mt-2 text-sm">Inducción de Trabajos temporales</p>
                 </div>
 
                 <div className="p-8">

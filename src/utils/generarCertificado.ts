@@ -26,26 +26,31 @@ export const generarCertificadoHTML = ({ nombre, apellido, dni, fechaAprobacion,
                     justify-content: center;
                     text-align: center;
                 }
-                .logo-placeholder {
+                .logo-container {
                     width: 120px;
                     height: 120px;
-                    background: #145A52;
+                    background: white;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    color: white;
-                    font-size: 50px;
-                    font-weight: 900;
                     border-radius: 20px;
-                    margin-bottom: 40px;
+                    margin-bottom: 30px;
+                    padding: 10px;
+                }
+                .logo-container img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
                 }
                 .title {
-                    font-size: 56px;
+                    font-size: 36px;
                     color: #145A52;
                     font-weight: 900;
                     margin: 0 0 20px 0;
                     text-transform: uppercase;
-                    letter-spacing: 2px;
+                    letter-spacing: 1px;
+                    line-height: 1.3;
+                    max-width: 900px;
                 }
                 .subtitle {
                     font-size: 24px;
@@ -107,8 +112,10 @@ export const generarCertificadoHTML = ({ nombre, apellido, dni, fechaAprobacion,
         </head>
         <body>
             <div class="certificado-page">
-                <div class="logo-placeholder">CH</div>
-                <h1 class="title">Certificado de Aprobación</h1>
+                <div class="logo-container">
+                    <img src="/assets/logo ch.png" alt="Logo CH" />
+                </div>
+                <h1 class="title">Inducción de trabajos temporales para<br />Catalina Huanca Sociedad Minera</h1>
                 <div class="subtitle">Otorgado orgullosamente a</div>
                 <div class="name">${nombre} ${apellido}</div>
                 <div class="details">
