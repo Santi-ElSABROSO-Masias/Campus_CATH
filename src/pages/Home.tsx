@@ -10,7 +10,7 @@ export const Home = () => {
             try {
                 const token = localStorage.getItem('campus_session_token');
 
-                const response = await fetch('http://localhost:3001/api/courses', {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/courses`, {
                     headers: token ? { 'Authorization': `Bearer ${token}` } : {}
                 });
 

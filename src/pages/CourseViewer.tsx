@@ -14,7 +14,7 @@ export const CourseViewer = () => {
                 const token = localStorage.getItem('campus_session_token');
                 if (!token) return;
 
-                const response = await fetch('http://localhost:3001/api/enrollments/my-progress', {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/enrollments/my-progress`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -61,7 +61,7 @@ export const CourseViewer = () => {
 
         try {
             const token = localStorage.getItem('campus_session_token');
-            const res = await fetch('http://localhost:3001/api/enrollments/attempts', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/enrollments/attempts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

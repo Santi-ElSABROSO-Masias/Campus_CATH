@@ -33,7 +33,7 @@ export const MainLayout = () => {
 
     const fetchNotifications = async (token: string) => {
         try {
-            const res = await fetch('http://localhost:3001/api/enrollments/my-progress', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/enrollments/my-progress`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await res.json();
@@ -48,7 +48,7 @@ export const MainLayout = () => {
 
     const fetchMessages = async (token: string) => {
         try {
-            const res = await fetch('http://localhost:3001/api/messages/my-messages', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/messages/my-messages`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await res.json();
@@ -74,7 +74,7 @@ export const MainLayout = () => {
     const handleMarkAsRead = async (msgId: string) => {
         try {
             const token = localStorage.getItem('campus_session_token');
-            await fetch(`http://localhost:3001/api/messages/${msgId}/read`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/messages/${msgId}/read`, {
                 method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -250,7 +250,7 @@ export const MainLayout = () => {
                                 onClick={async () => {
                                     try {
                                         const token = localStorage.getItem('campus_session_token');
-                                        await fetch('http://localhost:3001/api/messages', {
+                                        await fetch(`${import.meta.env.VITE_API_URL}/messages`, {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                                             body: JSON.stringify({ receiverId: receiverDni, content: textContent })
