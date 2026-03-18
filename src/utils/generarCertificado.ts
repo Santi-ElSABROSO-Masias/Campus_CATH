@@ -1,4 +1,10 @@
+import logoChUrl from '../assets/logo ch.png';
+
 export const generarCertificadoHTML = ({ nombre, apellido, dni, fechaAprobacion, codigoUnico, cursoTitulo }: any) => {
+    // Es necesario usar una URL absoluta para que la imagen cargue dentro de un Blob URL generado por URL.createObjectURL
+    const baseUrl = window.location.origin;
+    const absoluteLogoUrl = new URL(logoChUrl, baseUrl).href;
+
     return `
     <html>
         <head>
@@ -113,7 +119,7 @@ export const generarCertificadoHTML = ({ nombre, apellido, dni, fechaAprobacion,
         <body>
             <div class="certificado-page">
                 <div class="logo-container">
-                    <img src="/assets/logo ch.png" alt="Logo CH" />
+                    <img src="${absoluteLogoUrl}" alt="Logo CH" />
                 </div>
                 <h1 class="title">Inducción de trabajos temporales para<br />Catalina Huanca Sociedad Minera</h1>
                 <div class="subtitle">Otorgado orgullosamente a</div>
