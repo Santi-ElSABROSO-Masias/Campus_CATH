@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Clock, BookOpen, CheckCircle, AlertCircle, Calendar as CalendarIcon, Filter, Search, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { Clock, BookOpen, CheckCircle, AlertCircle, Filter, Search } from 'lucide-react';
+import { Calendar } from '../components/Calendar';
 
 export const Dashboard = () => {
     const [enrollments, setEnrollments] = useState<any[]>([]);
@@ -129,40 +129,8 @@ export const Dashboard = () => {
                 </div>
 
                 {/* 3.4 Calendario */}
-                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                            <CalendarIcon size={20} className="text-blue-600" /> Calendario
-                        </h2>
-                        <button className="text-slate-500 hover:bg-slate-100 p-1.5 rounded-full transition" title="Nuevo evento">
-                            <Plus size={18} />
-                        </button>
-                    </div>
+                <Calendar />
 
-                    <div className="flex justify-between items-center mb-4 text-slate-700">
-                        <button className="p-1 hover:bg-slate-100 rounded"><ChevronLeft size={20} /></button>
-                        <span className="font-semibold text-sm uppercase tracking-wide">Marzo 2026</span>
-                        <button className="p-1 hover:bg-slate-100 rounded"><ChevronRight size={20} /></button>
-                    </div>
-
-                    <div className="grid grid-cols-7 gap-1 text-center mb-2">
-                        {['L', 'M', 'X', 'J', 'V', 'S', 'D'].map(d => (
-                            <div key={d} className="text-xs font-bold text-slate-400 py-1">{d}</div>
-                        ))}
-                    </div>
-                    <div className="grid grid-cols-7 gap-1 text-center">
-                        {/* Mock Calendar Grid */}
-                        {Array.from({ length: 31 }).map((_, i) => (
-                            <div key={i} className={`py-1.5 text-sm rounded-lg ${i === 14 ? 'bg-blue-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'}`}>
-                                {i + 1}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="mt-6 space-y-2">
-                        <button className="w-full py-2 text-sm text-blue-600 font-medium hover:bg-blue-50 rounded-lg transition">Ir al calendario completo</button>
-                        <button className="w-full py-2 text-sm text-slate-600 font-medium hover:bg-slate-50 border border-slate-200 rounded-lg transition">Exportar calendarios</button>
-                    </div>
-                </div>
             </div>
         </div>
     );
